@@ -1,0 +1,279 @@
+<%- include('./partials/head')%>
+<nav class="navbar navbar-expand-lg navbar-danger bg-cherry">
+  <a href="#" class="navbar-brand text-light">Quizzz</a>
+  <div class="flex-fill"></div>
+  <div class="navbar-nav">
+    <form action="/users/logout" method="POST">
+      <button class="btn btn-outline-danger btn-sm text-light">
+        Logout <i class="fa fa-sign-out"></i>
+      </button>
+    </form>
+  </div>
+</nav>
+<h2 class="h2 text-center mt-5">Welcome</h2>
+<hr />
+<div class="container">
+  <div class="jumbotron bg-jumbotron-1" id="jumbotron">
+    <div class="d-flex flex-sm-row flex-column text-jumbotron">
+      <% if(user){%>
+      <div
+        class="d-flex flex-column justify-content-center align-items-center"
+        style="position: relative;"
+      >
+        <% if(user.img.data) {%>
+        <img
+          src="data:<%=user.img.contentType%>;base64, 
+        <%=user.img.data.toString('base64')%>"
+          class="profileImage align-self-center rounded-circle img-fluid d-block"
+        />
+        <%}else if(user.profileImage){%>
+        <img
+          src="<%=user.profileImage%>"
+          alt="profileImage"
+          class="profileImage align-self-center rounded-circle img-fluid d-block"
+        />
+        <%}else{%>
+        <img
+          src="https://p7.hiclipart.com/preview/201/51/681/computer-icons-customer-service-user-others.jpg"
+          alt="profileImage"
+          class="profileImage align-self-center rounded-circle img-fluid d-block"
+        />
+        <%}%>
+        <div
+          class="modal fade"
+          id="picture-upload"
+          role="dialog"
+          aria-labelledby="picture-upload"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title">Upload a profile Pic</h3>
+              </div>
+              <form
+                action="/users/uploadImage"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <div class="modal-body">
+                  <input type="file" name="profileImage" id="profileImage" />
+                </div>
+                <div class="modal-footer text-right">
+                  <button
+                    class="btn btn-sm btn-secondary mr-5"
+                    data-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                  <button class="btn btn-sm btn-primary" type="submit">
+                    Upload
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          data-toggle="modal"
+          data-target="#picture-upload"
+          class="button-none camera"
+        >
+          <i class="fa fa-camera" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="flex-fill">
+        <h4 class="h3 head-jumbotron text-center mt-sm-0 mt-3">
+          <%=user.username%>
+        </h4>
+        <hr class="ml-3" />
+        <div class="d-flex flex-row justify-content-center">
+          <div class="flex-column text-start">
+            <h5>Your Score: <%=user.Score.highScore%></h5>
+            <h5>Total Q's played: <%=user.Score.totalAnsweredQuestions%></h5>
+            <h5>Total Q's correct: <%=user.Score.highestAnsweredCorrect%></h5>
+            <h5>
+              Accuracy:
+              <%=(parseFloat((user.Score.highestAnsweredCorrect/user.Score.totalAnsweredQuestions*100).toFixed(2))
+              || 0)%>%
+            </h5>
+            <%} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-row justify-content-center align-items-center">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="jumbotron-background"
+        id="exampleRadios1"
+        value="1"
+        onchange="getBackground(this)"
+        checked
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="jumbotron-background"
+        id="exampleRadios2"
+        value="2"
+        onchange="getBackground(this)"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="jumbotron-background"
+        id="exampleRadios3"
+        value="3"
+        onchange="getBackground(this)"
+      />
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="jumbotron-background"
+        id="exampleRadios4"
+        value="4"
+        onchange="getBackground(this)"
+      />
+    </div>
+  </div>
+  <h1 class="mt-5">Select your genre</h1>
+  <div class="d-flex flex-row justify-content-center pt-3">
+    <form class="quiz-form">
+      <div class="row form-group">
+        <label
+          for="category"
+          class="col-12 col-md-2 col-form-label pl-0 pl-sm-2"
+          >Category:</label
+        >
+        <select
+          name="category"
+          id="category"
+          class="form-control col-12 col-md-10"
+        >
+          <option value="9">General Knowledge</option>
+          <option value="10">About Books</option>
+          <option value="11">About Films</option>
+          <option value="17">Science & Nature</option>
+          <option value="18">Computers</option>
+          <option value="19">Mathematics</option>
+          <option value="20">Mythology</option>
+          <option value="21">Sports</option>
+          <option value="22">Geography</option>
+          <option value="23">History</option>
+          <option value="24">Politics</option>
+          <option value="25">Art</option>
+          <option value="26">Celebrities</option>
+          <option value="27">Animals</option>
+          <option value="28">Vehicles</option>
+          <option value="29">Comics</option>
+          <option value="30">Gadgets</option>
+          <option value="31">Japanese Anime & Manga</option>
+          <option value="32">Cartoon & Animations</option>
+        </select>
+      </div>
+      <div class="row form-group">
+        <label
+          for="difficulty"
+          class="col-12 col-md-2 col-form-label pl-0 pl-sm-2"
+          >Difficulty:</label
+        >
+        <select
+          name="difficulty"
+          id="difficulty"
+          class="form-control col-12 col-md-10"
+        >
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="row form-group d-flex flex-row align-items-center">
+        <label for="amount" class="col pl-0 pl-sm-2 col-form-label col-md-3"
+          >Number of Questions:</label
+        >
+        <input
+          name="amount"
+          type="number"
+          class="col form-control col-md-6"
+          id="amount"
+          min="10"
+          max="50"
+          value="10"
+        />
+        <label for="amount" class="col col-md-3 col-form-label text-danger"
+          >(max 50)</label
+        >
+      </div>
+    </form>
+  </div>
+</div>
+<center>
+  <button class="btn btn-primary btn-sm pl-3 pr-3 mb-5" type="submit" id="play">
+    Play
+  </button>
+</center>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"
+></script>
+<script>
+  const play = document.getElementById("play");
+  const jumbotron = document.getElementById("jumbotron");
+  function getBackground(el) {
+    switch (el.value) {
+      case '1':
+        jumbotron.classList.add("bg-jumbotron-1");
+        jumbotron.classList.remove(
+          "bg-jumbotron-2",
+          "bg-jumbotron-3",
+          "bg-jumbotron-4"
+        );
+        break;
+      case '2':
+        jumbotron.classList.add("bg-jumbotron-2");
+        jumbotron.classList.remove(
+          "bg-jumbotron-1",
+          "bg-jumbotron-3",
+          "bg-jumbotron-4"
+        );
+        break;
+      case '3':
+        jumbotron.classList.add("bg-jumbotron-3");
+        jumbotron.classList.remove(
+          "bg-jumbotron-2",
+          "bg-jumbotron-1",
+          "bg-jumbotron-4"
+        );
+        break;
+      case'4':
+        jumbotron.classList.add("bg-jumbotron-4");
+        jumbotron.classList.remove(
+          "bg-jumbotron-2",
+          "bg-jumbotron-3",
+          "bg-jumbotron-1"
+        );
+        break;
+    }
+  }
+  play.addEventListener("click", () => {
+    const data = $("form").serialize();
+    window.location.href = `/quiz?${data}`;
+  });
+</script>
+<%- include('./partials/foot')%>

@@ -1,0 +1,61 @@
+<%- include('./partials/head')%>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-cherry">
+  <a href="#" class="navbar-brand align-self-center text-light">Quizzz</a>
+  <div
+    class="navbar-nav align-items-sm-center w-100 justify-content-sm-end align-items-end d-sm-show"
+  ></div>
+</nav>
+<div id="load">
+  <div
+    class="d-flex flex-column align-items-center justify-content-center loader"
+  >
+    <img
+      src="images/loader.gif"
+      alt="loader"
+      class="img-fluid loader-img d-block"
+    />
+    <h3 class="h3">Loading ...</h3>
+  </div>
+</div>
+<div class="d-none" id="quiz-board">
+  <div class="d-flex align-items-center" style="height: 80vh;">
+    <div class="d-flex container justify-content-center">
+      <div class="card quiz card-shadow">
+        <div class="d-block card-header bg-cherry text-light p-3" id="header">
+          <span class="float-left"
+            >Question <span id="question-number">1</span> of
+            <span id="total-questions"></span> </span
+          ><span class="float-right"
+            ><span id="score">0</span>/<span id="total-Score"></span
+          ></span>
+        </div>
+        <div class="card-body bg-cherry p-2">
+          <div class="bg-light rounded">
+            <div class="p-3" id="quiz-question" style="font-size: large;"></div>
+            <div
+              class="card-body align-self-center w-100 text-center h5"
+              id="quiz-options"
+            ></div>
+          </div>
+        </div>
+        <div class="card-footer bg-cherry">
+          <span class="float-left">
+            <p class="rounded bg-success text-light p-2" id="Correct">
+              Answered Correctly : <span id="correct">0</span>/<span
+                id="answered-total-questions"
+              ></span>
+            </p>
+          </span>
+          <span class="float-right" id="actions">
+            <button class="btn btn-sm btn-primary p-2" id="next">
+              Next &#10148;
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="javascripts/quiz.js"></script>
+<%- include('./partials/foot')%>

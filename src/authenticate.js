@@ -1,0 +1,125 @@
+const passport = require('passport');
+const { secretKey, facebookIds, googleOauth2 } = require('./config');
+
+const FacebookStrategy = require('passport-facebook').Strategy;
+const GoogleOauth20 = require('passport-google-oauth20').Strategy;
+
+const jwt = require('jsonwebtoken');
+
+const LocalStrategy = require('passport-local').Strategy;
+
+const Users = require('../models/user');
+
+passport.use(new LocalStrategy(Users.authenticate()));
+passport.serializeUser(Users.serializeUser());
+passport.deserializeUser(Users.deserializeUser());
+
+exports.getToken = function(user){
+    return jwt.sign(user,secretKey,{ algorithm: 'HS256',expiresIn: 60*60*1000 });
+}
+
+
+exports.verifyUser = (req,res,next)=>{
+    if(req.session.j){
+        jwt.verify(req.session.j,secretKey,{ algorithms:['HS256'] },(err,decoded)=>{
+            if(err){
+                console.log('Not authenticated from Verify',err);
+                req.session.j='';
+                req.session.isAuthenticated = false;
+                res.redirect('/');
+            }
+            Users.findOne({ _id: decoded._id }).then(user=>{
+                if(user){
+                req.user = user;
+                req.session.isAuthenticated = true;
+                next();
+            }
+          },err=>next(err))
+        });
+      }else{
+        console.log('Not authenticated from Verify');
+        req.session.isAuthenticated = false;
+        res.redirect('/')
+      }
+}
+
+exports.authenticated = (req,res,next)=>{
+    if(req.session.isAuthenticated){
+        console.log('Yes,Authenticated Authenticated')
+        return next();
+    }else{
+        console.log('No,UnAuthenticated Authenticated')
+        return res.redirect('/');
+    }
+}
+
+exports.unAuthenticated = (req,res,next)=>{
+    if(req.session.isAuthenticated){
+        console.log('Yes,Authenticated unAuthenticated')
+        return res.redirect('/dashboard')
+    }else{
+        console.log('No,UnAuthenticated from unAuthenticated')
+        return next()
+    }
+}
+exports.verifyAdmin = (req,res,next)=>{
+    if(req.user.admin){
+        next();
+    }else{
+        var err = new Error('You are Not authorized!!');
+        err.status = 403;
+        return next(err);
+    }
+}
+passport.use(new FacebookStrategy({
+    clientID: facebookIds.clientId,
+    clientSecret: facebookIds.clientSecret,
+    callbackURL: "https://localhost:3443/auth/facebook/callback",
+    profileFields: ['id', 'picture.type(large)', 'emails', 'displayName']
+},(accessToken, refreshToken, profile, done)=>{
+    Users.findOne({ username: profile.displayName },(err,user)=>{
+        if(err){
+            return done(err,false);
+        }
+        if(!err && user!==null){
+            return done(null,user)
+        }else{
+            const user = new Users({ username: profile.displayName });
+            user.facebookId = profile.id;
+            user.profileImage = `https://graph.facebook.com/v8.0/${profile.id}/picture?height=200&width=200`;
+            user.save((err,user)=>{
+                if(err){
+                    return done(err,false);
+                }else{
+                    return done(null,user);
+                }
+            })
+        }
+    })
+}))
+
+passport.use(new GoogleOauth20({
+    clientID: googleOauth2.clientId,
+    clientSecret: googleOauth2.clientSecret,
+    callbackURL: "https://localhost:3443/auth/google/callback"
+},(accessToken,refreshToken,profile,done)=>{
+    Users.findOne({ username: profile.displayName },(err,user)=>{
+        if(err){
+            return done(err,false);
+        }else if(!err && user!=null){
+            return done(null,user)
+        }else{
+            const user = new Users({ username: profile.displayName });
+            user.googleId = profile.id;
+            user.profileImage = profile._json.picture;
+            user.save((err,user)=>{
+                if(err){
+                    return done(err,false);
+                }else{
+                    return done(null,user);
+                }
+            })
+        }
+    })
+}))
+

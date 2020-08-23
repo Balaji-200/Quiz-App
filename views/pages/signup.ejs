@@ -1,0 +1,155 @@
+<%- include('../partials/head')%>
+<div class="d-flex flex-fill justify-content-center pt-5 text-cherry">
+  <h1>Quizzz.</h1>
+</div>
+<div class="container mt-5 p-2 windows mb-5 card-shadow">
+  <div class="d-flex flex-nowrap align-items-center pl-2 pr-2 windows-head">
+    <h4 class="justify-content-center flex-fill text-light">SignUp</h4>
+
+    <div class="d-flex flex-nowrap">
+      <span
+        class="d-flex align-items-center justify-content-center windows-head-el"
+        >&#65112;</span
+      >
+      <span
+        class="d-flex align-items-center justify-content-center windows-head-el"
+        >&#9744;</span
+      >
+      <span
+        class="d-flex align-items-center justify-content-center windows-head-el"
+        >&#10005;</span
+      >
+    </div>
+  </div>
+  <div class="container windows-body mt-2">
+    <form id="SignUpForm">
+      <div class="form-group row p-2 align-items-center">
+        <label for="username" class="p-1 col-12 col-md-2 col-form-label"
+          ><u>U</u>sername:</label
+        >
+        <input
+          type="text"
+          class="col-12 col-md-10 form-control windows-text-box"
+          name="username"
+          placeholder="Username"
+          id="signUpUsername"
+        />
+      </div>
+      <div class="form-group row p-2 align-items-center">
+        <label for="password" class="p-1 col-md-2 col-form-label"
+          ><u>P</u>assword:</label
+        >
+        <div class="col-12 col-md-10 p-0">
+          <input
+            type="password"
+            name="password"
+            class="form-control windows-text-box"
+            placeholder="Password"
+            style="position: relative;"
+            id="signUpPassword"
+          />
+          <i
+            type="button"
+            id="passIconSignUpPassword"
+            class="fa fa-eye-slash eye-show"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
+      <div
+        class="row d-flex align-items-center flex-column justify-content-center"
+      >
+        <div class="d-flex w-100">
+          <div class="flex-fill d-none d-sm-block"></div>
+          <h4 class="ml-5">Your Password :-</h4>
+          <div class="flex-fill"></div>
+          <div class="flex-fill d-none d-sm-block"></div>
+        </div>
+        <div
+          class="d-flex flex-column align-items-start justify-content-center"
+        >
+          <p>
+            1) Must contain letters
+            <span id="letter" style="color: black;">&#10005;</span>
+          </p>
+          <p>
+            2) Must contain numbers
+            <span id="number" style="color: black;">&#10005;</span>
+          </p>
+          <p>
+            3) Must contain special Characters
+            <span id="Characters" style="color: black;">&#10005;</span>
+          </p>
+          <p>
+            4) Must be atleast 8 characters long<span
+              id="password"
+              style="color: black;"
+              >&#10005;</span
+            >
+          </p>
+        </div>
+      </div>
+      <div class="form-group row p-2 align-items-center">
+        <label for="password" class="p-1 col-md-2 col-form-label"
+          ><u>C</u>onfirm Password:</label
+        >
+        <div class="col-12 col-md-10 p-0">
+          <input
+            type="password"
+            name="password"
+            class="form-control windows-text-box"
+            placeholder="Confirm Password"
+            style="position: relative;"
+            id="confirmPassword"
+          />
+          <i
+            type="button"
+            id="passIconConfirm"
+            class="fa fa-eye-slash eye-show"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
+    </form>
+    <div class="d-flex flex-nowrap pb-3">
+      <div class="flex-fill"></div>
+      <button class="btn btn-windows mr-3" id="submit">Submit</button>
+      <button class="btn btn-windows" id="cancel">Cancel</button>
+    </div>
+  </div>
+  <div class="modal fade" role="dialog" id="alerts">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content windows-body p-2">
+        <div class="modal-header windows-head" style="height: 100% !important;">
+          <h4 class="modal-title text-light" id="modal-head">Success</h4>
+          <button class="btn btn-sm btn-windows" data-dismiss="modal">
+            <span>&#10005;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <p class="text-center"></p>
+          <p class="text-center"></p>
+        </div>
+        <div
+          class="modal-footer align-self-center"
+          style="border-top: none !important;"
+        >
+          <button class="btn btn-sm btn-windows pl-4 pr-4" id="ok">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"
+></script>
+<script src="javascripts/signup.js"></script>
+
+<%- include('../partials/foot')%>

@@ -1,0 +1,128 @@
+<%- include('./partials/head')%>
+<div class="d-flex flex-fill justify-content-center pt-5 text-cherry">
+  <h1>Quizzz.</h1>
+</div>
+<div class="container mt-5 login mb-5">
+  <div class="card card-login">
+    <div class="card-header mac-head pt-0 pb-0">
+      <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row text-center">
+          <span class="text-danger h1 m-0">&#8226;</span>
+          <span class="text-warning h1 m-0">&#8226;</span>
+          <span class="text-success h1 m-0">&#8226;</span>
+        </div>
+        <h3 class="flex-fill text-center mr-5 mb-0">Login</h3>
+      </div>
+    </div>
+    <div class="p-1 mac-head">
+      <div class="card-body" style="background-color: white;">
+        <form id="loginForm">
+          <div class="form-group row p-2 align-items-center">
+            <label for="username" class="p-1 col-12 col-md-2 col-form-label"
+              >Username:</label
+            >
+            <input
+              type="text"
+              class="col-12 col-md-10 form-control"
+              name="username"
+              placeholder="Username"
+              id="username"
+            />
+          </div>
+          <div class="form-group row p-2 align-items-center">
+            <label for="password" class="p-1 col-md-2 col-form-label"
+              >Password:</label
+            >
+            <div class="col-12 col-md-10 p-0">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Password"
+                style="position: relative;"
+                id="password"
+              />
+              <i
+                type="button"
+                id="passIcon"
+                class="fa fa-eye-slash eye-show"
+                aria-hidden="true"
+              ></i>
+            </div>
+          </div>
+          <h5 class="text-center mt-4 mb-4">
+            <span
+              >Don't have an Account?
+              <a href="/signup">
+                SignUp
+              </a>
+            </span>
+            here.
+          </h5>
+          <% if(err) { %>
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+          >
+            <%=err%>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+              id="usernamePasswordAlert"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <%}%>
+        </form>
+        <div class="text-right" id="login-buttons">
+          <button
+            type="reset"
+            class="btn btn-sm mr-2 mac-button-cancel pt-0 pb-0"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-sm pt-0 pb-0 mac-button-submit text-light"
+            id="submit-button"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1 class="h1 text-center m-3">Or</h1>
+  <a
+    href="/auth/facebook"
+    class="h4 list-group-item bg-facebook rounded list-group-item-action text-light text-center align-items-center"
+    ><i class="float-left text-light fa fa-facebook" aria-hidden="true"></i>
+    Login with Facebook</a
+  >
+  <a
+    href="/auth/google"
+    class="h4 list-group-item bg-danger rounded list-group-item-action text-light text-center align-items-center"
+    ><i class="float-left fa fa-google-plus" aria-hidden="true"></i> Login with
+    Google</a
+  >
+</div>
+<!-- <script src="javascripts/jquery.min.js"></script> -->
+<!-- <script src="javascripts/jquery.slim.min.js"></script> -->
+<!-- <script src="javascripts/bootstrap.min.js"></script> -->
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"
+></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"
+></script>
+<script src="javascripts/login.js"></script>
+<%- include('./partials/foot')%>
