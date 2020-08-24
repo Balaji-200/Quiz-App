@@ -5,6 +5,7 @@
   "scripts": {
     "server": "cd ../ && cd mongodb && mongod --dbpath=data --bind_ip 127.0.0.1",
     "start": "nodemon ./bin/www",
+    "production":"node ./bin/www",
     "dev": "concurrently \"npm run server\" \"npm run start\""
   },
   "dependencies": {
