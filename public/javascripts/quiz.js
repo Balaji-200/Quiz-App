@@ -46,7 +46,7 @@ fetch(url)
     const answered = document.getElementById("Correct");
 
     var available = [...quiz];
-    console.log(available);
+    // console.log(available);
     var duration = 0.3;
     var questionNumber = 0,
       s = 0,
@@ -93,7 +93,7 @@ fetch(url)
             const answer = opts.filter((ans) => {
               return answers.indexOf(ans) >= 0;
             });
-            console.log(decodeURIComponent(answer));
+            // console.log(decodeURIComponent(answer));
             for (let i = 0; i <= opts.length; i++) {
               if (options.children[i] != null) {
                 if (
@@ -164,7 +164,8 @@ fetch(url)
         "btn-outline-success",
         "pl-3",
         "pr-3",
-        "ml-3"
+        "ml-3",
+        "text-lightI"
       );
       proceed.innerText = "Proceed";
       proceed.addEventListener("click", () => {
@@ -189,7 +190,7 @@ fetch(url)
         xhr.send(json);
       });
       retry.className = "btn";
-      retry.classList.add("btn-sm", "btn-outline-info", "pl-3", "pr-3");
+      retry.classList.add("btn-sm", "btn-outline-info", "pl-3", "pr-3","text-light");
       retry.innerText = "Try Again";
       retry.addEventListener("click", () => {
         location.href = "/quiz";
@@ -217,18 +218,6 @@ fetch(url)
       div.appendChild(span);
       return div;
     }
-
-    function icon(icon) {
-      var span = document.createElement("span");
-      span.classList.add("float-right");
-      if (Math.floor((s / 100) * 100) >= 70) {
-        span.classList.add("text-success");
-      } else {
-        span.classList.add("text-danger");
-      }
-      span.innerHTML = icon;
-      return span;
-    }
     nextButton.addEventListener("click", next);
 
     function shuffleArray(array) {
@@ -244,7 +233,7 @@ fetch(url)
       if (questionNumber === quiz.length) {
         ResultPage();
       } else {
-        console.log(questionNumber);
+        // console.log(questionNumber);
         clearOpions();
         getNewQuestion();
       }

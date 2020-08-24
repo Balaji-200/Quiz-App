@@ -10,7 +10,7 @@ const fs =require('fs');
 users.use(bodyParser.json());
 
 /* GET users listing. */
-users.get('/signup',(req, res, next)=> {
+users.get('/signup',authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next)=> {
   Users.find({}).then((user)=>{
     if(user){
       res.statusCode = 200;
@@ -22,7 +22,6 @@ users.get('/signup',(req, res, next)=> {
 })
 
 users.post('/signup',(req,res,next)=>{
-  console.log(req.body);
   Users.findOne({ username: req.body.username }).then(user=>{
     if(user){
       res.statusCode = 409;
@@ -48,7 +47,7 @@ users.post('/signup',(req,res,next)=>{
   ).catch(err=> next(err))
 })
 
-users.delete('/signup',(req,res,next)=>{
+users.delete('/signup',authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
   Users.deleteMany({}).then(resp=>{
     res.statusCode = 200;
     res.setHeader('Content-Type','application/json');
@@ -60,7 +59,6 @@ users.post('/login',(req,res,next)=>{
   passport.authenticate('local',{session: true,},(err,user,info)=>{
     if(err) return next(err)
     if(!user){
-      console.log('No');
       req.app.set('loginErr','Username or password is Incorect')
       return res.status(200).send({ redirectUrl: '/'});
     }

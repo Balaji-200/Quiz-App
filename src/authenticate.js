@@ -15,7 +15,7 @@ passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
 exports.getToken = function(user){
-    return jwt.sign(user,secretKey,{ algorithm: 'HS256',expiresIn: 60*60*1000 });
+    return jwt.sign(user,secretKey,{ algorithm: 'HS256',expiresIn: '7d' });
 }
 
 
@@ -23,7 +23,6 @@ exports.verifyUser = (req,res,next)=>{
     if(req.session.j){
         jwt.verify(req.session.j,secretKey,{ algorithms:['HS256'] },(err,decoded)=>{
             if(err){
-                console.log('Not authenticated from Verify',err);
                 req.session.j='';
                 req.session.isAuthenticated = false;
                 res.redirect('/');
@@ -37,7 +36,6 @@ exports.verifyUser = (req,res,next)=>{
           },err=>next(err))
         });
       }else{
-        console.log('Not authenticated from Verify');
         req.session.isAuthenticated = false;
         res.redirect('/')
       }
@@ -45,20 +43,16 @@ exports.verifyUser = (req,res,next)=>{
 
 exports.authenticated = (req,res,next)=>{
     if(req.session.isAuthenticated){
-        console.log('Yes,Authenticated Authenticated')
         return next();
     }else{
-        console.log('No,UnAuthenticated Authenticated')
         return res.redirect('/');
     }
 }
 
 exports.unAuthenticated = (req,res,next)=>{
     if(req.session.isAuthenticated){
-        console.log('Yes,Authenticated unAuthenticated')
         return res.redirect('/dashboard')
     }else{
-        console.log('No,UnAuthenticated from unAuthenticated')
         return next()
     }
 }

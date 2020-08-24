@@ -19,22 +19,22 @@
   </div>
 </div>
 <div class="d-none" id="quiz-board">
-  <div class="d-flex align-items-center" style="height: 80vh;">
+  <div class="d-flex align-items-center quiz-board">
     <div class="d-flex container justify-content-center">
       <div class="card quiz card-shadow">
         <div class="d-block card-header bg-cherry text-light p-3" id="header">
-          <span class="float-left"
+          <span class="float-left h5"
             >Question <span id="question-number">1</span> of
             <span id="total-questions"></span> </span
-          ><span class="float-right"
+          ><span class="float-right h5"
             ><span id="score">0</span>/<span id="total-Score"></span
           ></span>
         </div>
         <div class="card-body bg-cherry p-2">
           <div class="bg-light rounded">
-            <div class="p-3" id="quiz-question" style="font-size: large;"></div>
+            <div class="p-3" id="quiz-question"></div>
             <div
-              class="card-body align-self-center w-100 text-center h5"
+              class="card-body align-self-center w-100 text-center"
               id="quiz-options"
             ></div>
           </div>
@@ -48,7 +48,7 @@
             </p>
           </span>
           <span class="float-right" id="actions">
-            <button class="btn btn-sm btn-primary p-2" id="next">
+            <button class="btn btn-sm btn-primary pl-2 pr-2" id="next">
               Next &#10148;
             </button>
           </span>

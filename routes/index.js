@@ -9,7 +9,6 @@ router.get('/',authenticate.unAuthenticated,(req,res,next)=>{
 })
 
 router.get('/dashboard',authenticate.verifyUser,authenticate.authenticated,function(req, res, next) {
-  console.log(res.statusCode);
   res.render('dashboard',{ user: req.user });
 });
 

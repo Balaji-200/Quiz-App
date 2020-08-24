@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const compress = require('compression');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -13,13 +14,13 @@ const authRouter = require('./routes/auth');
 const { mongoUrl, secretKey} = require('./src/config');
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
+const compression = require('compression');
 
 const storeSession = require('connect-mongo')(expressSession); 
 
 
 mongoose.connect(mongoUrl,{ useNewUrlParser: true }).then(db=>{
-  console.log('Connected to the server!');
-},err=> console.log(err));
+},err=> next(err));
 const app = express();
 
 
@@ -34,7 +35,7 @@ app.use(expressSession({
   store: new storeSession({ mongooseConnection: mongoose.connection }),
   cookie:{
     httpOnly: true,
-    maxAge:8640000,
+    maxAge:604800,
   }
 }));
 app.use(passport.initialize());
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth',authRouter);
+app.use(compress());
 app.all('*',(req,res,next)=>{
   if(req.protocol=='https') {
   }
