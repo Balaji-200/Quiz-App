@@ -68,7 +68,7 @@ exports.verifyAdmin = (req,res,next)=>{
 passport.use(new FacebookStrategy({
     clientID: facebookIds.clientId,
     clientSecret: facebookIds.clientSecret,
-    callbackURL: "https://localhost:3443/auth/facebook/callback",
+    callbackURL: "https://quizapp-nodejs.herokuapp.com/auth/facebook/callback",
     profileFields: ['id', 'picture.type(large)', 'emails', 'displayName']
 },(accessToken, refreshToken, profile, done)=>{
     Users.findOne({ username: profile.displayName },(err,user)=>{
@@ -95,7 +95,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GoogleOauth20({
     clientID: googleOauth2.clientId,
     clientSecret: googleOauth2.clientSecret,
-    callbackURL: "https://localhost:3443/auth/google/callback"
+    callbackURL: "https://quizapp-nodejs.herokuapp.com/auth/google/callback"
 },(accessToken,refreshToken,profile,done)=>{
     Users.findOne({ username: profile.displayName },(err,user)=>{
         if(err){
