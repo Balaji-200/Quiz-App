@@ -14,7 +14,6 @@ const authRouter = require('./routes/auth');
 const { mongoUrl, secretKey} = require('./src/config');
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
-const compression = require('compression');
 
 const storeSession = require('connect-mongo')(expressSession); 
 
