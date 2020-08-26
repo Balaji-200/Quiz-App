@@ -15,7 +15,7 @@ passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
 exports.getToken = function(user){
-    return jwt.sign(user,secretKey,{ algorithm: 'HS256',expiresIn: '7d' });
+    return jwt.sign(user,secretKey,{ algorithm: 'HS256',expiresIn: 604800 });
 }
 
 

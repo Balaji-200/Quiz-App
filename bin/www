@@ -35,9 +35,7 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-secureServer.listen(app.get('secPort'),()=>{
-  console.log(`Server is listening at ${app.get('secPort')}`);
-});
+secureServer.listen(app.get('secPort'));
 secureServer.on('error', onError);
 secureServer.on('listening', onListening);
 

@@ -18,7 +18,7 @@ const expressSession = require('express-session');
 const storeSession = require('connect-mongo')(expressSession); 
 
 
-mongoose.connect(mongoUrl,{ useNewUrlParser: true }).then(db=>{
+mongoose.connect(mongoUrl,{ useNewUrlParser: true,useUnifiedTopology:true }).then(db=>{
 },err=> next(err));
 const app = express();
 
@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'),{ maxAge:604800 }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
