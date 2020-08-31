@@ -34,7 +34,8 @@ app.use(expressSession({
   store: new storeSession({ mongooseConnection: mongoose.connection }),
   cookie:{
     httpOnly: true,
-    maxAge:604800,
+    maxAge:172800,
+    expires: 172800
   }
 }));
 app.use(passport.initialize());

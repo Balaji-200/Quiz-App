@@ -66,7 +66,6 @@ users.post('/login',(req,res,next)=>{
       if(err) return next(err)
       var token = authenticate.getToken({ _id: req.user._id});
       req.session.j = token;
-      req.session.cookie.maxAge = 86400000;
       req.app.set('loginErr','');
       res.statusCode = 200;
       return res.status(200).send({ redirectUrl: '/dashboard' });
