@@ -19,9 +19,9 @@ exports.getToken = function(user){
 }
 
 
-exports.verifyUser = (req,res,next)=>{
-    if(req.session.j){
-        jwt.verify(req.session.j,secretKey,{ algorithms:['HS256'] },(err,decoded)=>{
+exports.verifyUser = async (req,res,next)=>{
+    if(await req.session.j){
+         jwt.verify(await req.session.j,secretKey,{ algorithms:['HS256'] },(err,decoded)=>{
             if(err){
                 req.session.j='';
                 req.session.isAuthenticated = false;
@@ -41,16 +41,16 @@ exports.verifyUser = (req,res,next)=>{
       }
 }
 
-exports.authenticated = (req,res,next)=>{
-    if(req.session.isAuthenticated){
+exports.authenticated = async (req,res,next)=>{
+    if(await req.session.isAuthenticated){
         return next();
     }else{
         return res.redirect('/');
     }
 }
 
-exports.unAuthenticated = (req,res,next)=>{
-    if(req.session.isAuthenticated){
+exports.unAuthenticated = async (req,res,next)=>{
+    if(await req.session.isAuthenticated){
         return res.redirect('/dashboard')
     }else{
         return next()
