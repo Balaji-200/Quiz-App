@@ -166,7 +166,7 @@ fetch(url)
         "pl-3",
         "pr-3",
         "ml-3",
-        "text-lightI"
+        "text-light"
       );
       proceed.innerText = "Proceed";
       proceed.addEventListener("click", () => {
