@@ -16,6 +16,7 @@ fetch(url)
     if (response) return response.json();
   })
   .then((data) => {
+    localStorage.setItem("queryData",queryData[1]);
     load.classList.remove("d-show");
     load.classList.add("d-none");
     quizBoard.classList.remove("d-none");
@@ -193,7 +194,7 @@ fetch(url)
       retry.classList.add("btn-sm", "btn-outline-info", "pl-3", "pr-3","text-light");
       retry.innerText = "Try Again";
       retry.addEventListener("click", () => {
-        location.href = "/quiz";
+        location.href = `/quiz?${localStorage.getItem('queryData')}`;
       });
       answered.remove();
       actions.appendChild(retry);
