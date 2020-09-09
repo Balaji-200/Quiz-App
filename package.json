@@ -5,7 +5,7 @@
   "scripts": {
     "server": "cd ../ && cd mongodb && mongod --dbpath=data --bind_ip 127.0.0.1",
     "start": "nodemon ./bin/www",
-    "production":"NODE_ENV=production node ./bin/www",
+    "production":"node ./bin/www",
     "dev": "concurrently \"npm run server\" \"npm run start\""
   },
   "dependencies": {
@@ -39,9 +39,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Balaji-200/Quiz-App.git"
-  },
-  "engines":{
-    "node":"14.5.0"
   },
   "author": "",
   "license": "ISC",
