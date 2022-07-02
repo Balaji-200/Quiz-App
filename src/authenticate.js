@@ -1,5 +1,4 @@
 const passport = require('passport');
-// const { secretKey, facebookIds, googleOauth2 } = require('./config');
 
 if (process.env.NODE_ENV=="development")
 require('dotenv').config()

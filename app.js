@@ -11,14 +11,15 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
-const { mongoUrl, secretKey} = require('./src/config');
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
 
 const storeSession = require('connect-mongo')(expressSession); 
 
+if (process.env.NODE_ENV == "development")
+require('dotenv').config()
 
-mongoose.connect(mongoUrl,{ useNewUrlParser: true,useUnifiedTopology:true }).then(db=>{
+mongoose.connect(process.env.MONGO_URL,{ useNewUrlParser: true,useUnifiedTopology:true }).then(db=>{
 },err=> console.error(err));
 const app = express();
 
@@ -28,7 +29,7 @@ app.set('views',[path.join(__dirname, 'views'),path.join(__dirname,'views/pages'
 app.set('view engine', '.ejs');
 
 app.use(expressSession({
-  secret: secretKey,
+  secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: false,
   store: new storeSession({ mongooseConnection: mongoose.connection }),
