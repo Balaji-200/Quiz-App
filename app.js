@@ -14,13 +14,12 @@ const authRouter = require('./routes/auth');
 const { mongoUrl, secretKey} = require('./src/config');
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
-const compression = require('compression');
 
 const storeSession = require('connect-mongo')(expressSession); 
 
 
 mongoose.connect(mongoUrl,{ useNewUrlParser: true,useUnifiedTopology:true }).then(db=>{
-},err=> next(err));
+},err=> console.error(err));
 const app = express();
 
 

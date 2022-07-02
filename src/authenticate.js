@@ -1,5 +1,8 @@
 const passport = require('passport');
-const { secretKey, facebookIds, googleOauth2 } = require('./config');
+// const { secretKey, facebookIds, googleOauth2 } = require('./config');
+
+if (process.env.NODE_ENV=="development")
+require('dotenv').config()
 
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleOauth20 = require('passport-google-oauth20').Strategy;
@@ -15,13 +18,13 @@ passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
 exports.getToken = function(user){
-    return jwt.sign(user,secretKey,{ algorithm: 'HS256',expiresIn: 172800 });
+    return jwt.sign(user,process.env.SECRET_KEY,{ algorithm: 'HS256',expiresIn: 172800 });
 }
 
 
 exports.verifyUser = async (req,res,next)=>{
     if(await req.session.j){
-         jwt.verify(await req.session.j,secretKey,{ algorithms:['HS256'] },(err,decoded)=>{
+         jwt.verify(await req.session.j,process.env.SECRET_KEY,{ algorithms:['HS256'] },(err,decoded)=>{
             if(err){
                 req.session.j='';
                 req.session.isAuthenticated = false;
@@ -66,9 +69,9 @@ exports.verifyAdmin = (req,res,next)=>{
     }
 }
 passport.use(new FacebookStrategy({
-    clientID: facebookIds.clientId,
-    clientSecret: facebookIds.clientSecret,
-    callbackURL: "https://quizapp-nodejs.herokuapp.com/auth/facebook/callback",
+    clientID: process.env.FB_CLIENT_ID,
+    clientSecret: process.env.FB_CLIENT_SECRET,
+    callbackURL: `${process.env.URL}/auth/facebook/callback`,
     profileFields: ['id', 'picture.type(large)', 'emails', 'displayName']
 },(accessToken, refreshToken, profile, done)=>{
     Users.findOne({ username: profile.displayName },(err,user)=>{
@@ -93,9 +96,9 @@ passport.use(new FacebookStrategy({
 }))
 
 passport.use(new GoogleOauth20({
-    clientID: googleOauth2.clientId,
-    clientSecret: googleOauth2.clientSecret,
-    callbackURL: "https://quizapp-nodejs.herokuapp.com/auth/google/callback"
+    clientID: process.env.G_CLIENT_ID,
+    clientSecret: process.env.G_CLIENT_SECRET,
+    callbackURL: `${process.env.URL}/auth/google/callback`
 },(accessToken,refreshToken,profile,done)=>{
     Users.findOne({ username: profile.displayName },(err,user)=>{
         if(err){
